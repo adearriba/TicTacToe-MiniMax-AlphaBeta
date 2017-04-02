@@ -110,7 +110,7 @@ var game = (function(){
             changeState(random, COMPUTER);
             return;
         }
-        var minimax = miniMax(state, 0, COMPUTER);
+        var minimax = miniMax(state, 0, -Infinity, Infinity, COMPUTER);
         changeState(minimax[1], COMPUTER);
     }
 
@@ -147,12 +147,10 @@ var game = (function(){
         }
     }
 
-    function miniMax(board, depth, actualPlayer){
+    function miniMax(board, depth,alpha, beta, actualPlayer){
         var otherPlayer = actualPlayer == HUMAN ? COMPUTER : HUMAN;
         
         var bestMove = -1;
-        var bestScore = actualPlayer == COMPUTER ? -Infinity : Infinity;
-        var alpha = 100, beta = -100; 
 
         if (checkOver(board)){
             bestScore = scoreBoard(board);
@@ -163,23 +161,23 @@ var game = (function(){
         for (var i = 0; i < validMoves.length; i++) {
             newBoard = board.slice();
             newBoard[validMoves[i]] = actualPlayer;
-            var score = miniMax(newBoard, depth+1, otherPlayer)[0];
+            var score = miniMax(newBoard, depth+1,alpha, beta, otherPlayer)[0];
 
             if(actualPlayer == COMPUTER){
-                if (bestScore < score) {
-                    bestScore = score;
+                if (alpha < score) {
                     bestMove = validMoves[i];
-                    if(score == alpha)break;
+                    alpha = score;
                 }
+                if(beta <= alpha)break;
             }else{ 
-                if (bestScore > score) {
-                    bestScore = score;
+                if (beta > score) {
                     bestMove = validMoves[i];
-                    if(score == beta)break;
+                    beta = score;
                 }
+                if(beta <= alpha)break;
             }
         }
-
+        var bestScore = actualPlayer == COMPUTER ? alpha : beta;
         return [bestScore, bestMove];
     }
 
