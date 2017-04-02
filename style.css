@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 1.5vh;
+    background: #111;   
+    text-transform: uppercase;
+}
+
+#main{
+    margin: 0;
+    padding: 0;
+    padding-top: 25px;
+
+    height: auto;
+    width: 100%;
+}
+
+#board{
+    margin: auto;
+    padding: 0;
+
+    width: 33vh;
+    height: 33vh;
+}
+
+.tile{
+    padding: 0;
+    margin: 0.5vh;
+
+    height: 10vh;
+    width: 10vh;
+
+    border-radius: 5px;
+    background: #fff;
+
+    cursor: pointer;
+    float: left;
+}
+
+button{
+    margin: 0.5vh;
+    padding: 0;
+    height: 5vh;
+    width: 15vh;
+    line-height: 5vh;
+    vertical-align: middle;
+}
